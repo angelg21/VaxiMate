@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import UserScreen from './screens/UserScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import { Text, View, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import Begin from './navigations/Begin';
+import HomePage from './screens/HomePage';
+
+const Drawer = createDrawerNavigator();
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    // <View>
+    //   <Begin />
+    // </View>
+    //     <View style={styles.rootContainer}>
+    //     <Text>
+    //         This is the most <Text style={styles.highlight}>"User"</Text> screen!
+    //     </Text>
+    // </View>
+    <NavigationContainer>
+      <Begin />
+    </NavigationContainer>
   );
 }
-
 const styles = StyleSheet.create({
-  container: {
+  rootContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  highlight: {
+    fontWeight: 'bold',
+    color: '#eb1064',
   },
 });
