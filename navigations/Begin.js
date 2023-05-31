@@ -17,7 +17,13 @@ function Begin() {
                     headerShown: false
                 }}
             />
-            <Stack.Screen name='Intro' component={Intro} />
+            <Stack.Screen 
+                name='Intro' 
+                component={Intro} 
+                options={{
+                    headerShown: false
+                }}
+            />
             <Stack.Screen name='Login' component={Login} />
         </Stack.Navigator>
     )
