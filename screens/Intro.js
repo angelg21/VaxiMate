@@ -27,7 +27,7 @@ function Intro() {
         <View style={styles.container}>
             <ImageBackground source={require('../assets/imagenIntro.jpg')} style={styles.backgroundImage}>
                 <View style={styles.contentContainer}>
-                    <Text style={styles.appName}>Vaxi Mate</Text>
+                    <Text style={styles.appName}>VaxiMate</Text>
                     <Text style={styles.subtitle}>Confianza en cada dosis</Text>
                     <TouchableOpacity style={styles.buttonContainer} onPress={handleGetStarted}>
                         <Text style={styles.buttonText}>Get Started</Text>
@@ -74,9 +74,9 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     buttonText: {
+        fontFamily: 'MontserratBold',
         color: 'white',
         fontSize: 18,
-        fontWeight: 'bold',
     },
 });
 
