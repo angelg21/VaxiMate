@@ -1,11 +1,11 @@
 import { Text, View, Button } from 'react-native'
 
-function UserScreen() {
+function Calendar() {
     return (
         <View>
-            <Text> Esta es la Pagina UserScreen </Text>
+            <Text> Esta es la Pagina Calendar </Text>
         </View>
     );
 }
 
-export default UserScreen
+export default Calendar

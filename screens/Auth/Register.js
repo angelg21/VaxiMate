@@ -8,7 +8,7 @@ function Register() {
     const navigation = useNavigation();
 
     const handlePressRegister = () => {
-        navigation.navigate('Register');
+        navigation.navigate('NavHome');
     };
 
     const [fontsLoaded] = useFonts({
@@ -40,6 +40,7 @@ function Register() {
             />
             <TouchableOpacity
                 style={styles.buttonContainer}
+                onPress={handlePressRegister}
             >
                     <Text 
                         style={styles.buttonText}>Sign Up

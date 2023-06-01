@@ -1,9 +1,8 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Intro from '../screens/Intro';
 import Login from '../screens/Auth/Login';
-import HomePage from '../screens/HomePage';
 import Register from '../screens/Auth/Register';
+import NavHome from './NavHome';
 
 
 const Stack = createNativeStackNavigator();
@@ -12,8 +11,8 @@ function Begin() {
     return (
         <Stack.Navigator initialRouteName='Intro'>
             <Stack.Screen
-                name='Home'
-                component={HomePage}
+                name='NavHome'
+                component={NavHome}
                 options={{
                     headerShown: false
                 }}
