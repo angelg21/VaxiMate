@@ -17,15 +17,29 @@ function Begin() {
                     headerShown: false
                 }}
             />
-            <Stack.Screen 
-                name='Intro' 
-                component={Intro} 
+            <Stack.Screen
+                name='Intro'
+                component={Intro}
                 options={{
                     headerShown: false
                 }}
             />
-            <Stack.Screen name='Login' component={Login} />
-            <Stack.Screen name='Register' component={Register} />
+            <Stack.Screen
+                name='Login'
+                component={Login}
+                options={{
+                    title: '',
+                    headerTitleAlign: 'left',
+                }}
+            />
+            <Stack.Screen
+                name='Register'
+                component={Register}
+                options={{
+                    title: '',
+                    headerTitleAlign: 'left',
+                }}
+            />
         </Stack.Navigator>
     )
 }
