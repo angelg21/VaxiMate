@@ -3,8 +3,6 @@ import { View, ImageBackground, Text, StyleSheet, TouchableOpacity } from 'react
 import { useFonts, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 import { useNavigation } from '@react-navigation/native';
-import Login from './Auth/Login';
-
 
 
 function Intro() {

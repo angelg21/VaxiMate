@@ -10,6 +10,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 import { useFonts, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import ChildAdded from '../screens/VaxiMate/childList/ChildAdded';
+import FormsChild1 from '../screens/VaxiMate/childList/FormsChild1';
+import NavChild from './NavChild';
 
 const Drawer = createDrawerNavigator();
 
@@ -67,10 +70,10 @@ function NavHome() {
                 }}
             />
             <Drawer.Screen
-                name='ChildList'
-                component={ChildList}
+                name='NavChild'
+                component={NavChild}
                 options={{
-                    title: 'Child List',
+                    title: 'Child Added',
                     drawerLabel: ({ focused, color }) => (
                         <Text style={{ fontSize: focused ? 19 : 17, fontFamily: 'Roboto_Regular', color }}>Child List</Text>
                     ),
