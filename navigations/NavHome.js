@@ -1,7 +1,6 @@
 import { Text, View, Button } from 'react-native'
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, } from '@react-navigation/drawer'
 import Calendar from '../screens/VaxiMate/Calendar';
-import ChildList from '../screens/VaxiMate/ChildList';
 import HomePage from '../screens/VaxiMate/HomePage';
 import Immunization from '../screens/VaxiMate/Immunization';
 import Schedule from '../screens/VaxiMate/Schedule';
@@ -10,8 +9,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 import { useFonts, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
-import ChildAdded from '../screens/VaxiMate/childList/ChildAdded';
-import FormsChild1 from '../screens/VaxiMate/childList/FormsChild1';
 import NavChild from './NavChild';
 
 const Drawer = createDrawerNavigator();

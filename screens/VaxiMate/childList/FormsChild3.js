@@ -149,9 +149,13 @@ const styles = StyleSheet.create({
     },
     selectedMale: {
         backgroundColor: '#8AB6F7',
+        borderWidth: 2,
+        borderColor: 'black', 
     },
     selectedFemale: {
         backgroundColor: '#FFD9E5',
+        borderWidth: 2, 
+        borderColor: 'black', 
     },
     text: {
         fontFamily: 'MontserratBold',
