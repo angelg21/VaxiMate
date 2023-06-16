@@ -15,7 +15,7 @@ const DatePicker = (props) => {
     const onAndroidChange = (evt, selectedDate) => {
         setShow(false)
         if (selectedDate) {
-            setData(new Date(selectedDate))
+            setDate(new Date(selectedDate))
         }
     }
 

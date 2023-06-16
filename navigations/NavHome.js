@@ -1,6 +1,6 @@
 import { Text, View, Button } from 'react-native'
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, } from '@react-navigation/drawer'
-import Calendar from '../screens/VaxiMate/Calendar';
+import VaccinationCalendar from '../screens/VaxiMate/VaccinationCalendar';
 import HomePage from '../screens/VaxiMate/HomePage';
 import Immunization from '../screens/VaxiMate/Immunization';
 import Schedule from '../screens/VaxiMate/Schedule';
@@ -80,8 +80,8 @@ function NavHome() {
                 }}
             />
             <Drawer.Screen
-                name='Calendar'
-                component={Calendar}
+                name='VaccinationCalendar'
+                component={VaccinationCalendar}
                 options={{
                     title: 'Calendar',
                     drawerLabel: ({ focused, color }) => (
