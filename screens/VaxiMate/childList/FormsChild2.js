@@ -5,15 +5,22 @@ import DatePicker from '../../../components/DatePicker';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
+import { useState } from 'react';
 
-function FormsChild2() {
+
+function FormsChild2({route}) {
 
     const navigation = useNavigation();
+    const [date, setDate] = useState('');
+    const { page1Data } = route.params;
+
     const handleToForms1 = () => {
         navigation.navigate('FormsChild1');
     };
     const handleToForms3 = () => {
-        navigation.navigate('FormsChild3');
+        const page2Data = { date };
+        const formData = { ...page1Data, ...page2Data };
+        navigation.navigate('FormsChild3', { formData });
     };
     const currentDate = new Date().toISOString().split('T')[0];
     const [fontsLoaded] = useFonts({
@@ -46,7 +53,7 @@ function FormsChild2() {
                 />
                 <DatePicker
                     defaultDate={'1994-01-12'}
-                    onDateChange={(value) => console.log(value)}
+                    onDateChange={(value) => setDate(value.toISOString().substring(0, 10))}
                 />
             </View>
             <View style={styles.toachables}>

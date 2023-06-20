@@ -6,17 +6,35 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useFonts, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 import { Feather } from '@expo/vector-icons';
+import { createBaby } from '../../../components/auth/Auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function FormsChild3() {
-
+function FormsChild3({ route }) {
+    const { formData } = route.params;
     const [selectedGender, setSelectedGender] = useState(null);
     const handleGenderSelection = (gender) => {
         setSelectedGender(gender);
     };
     const navigation = useNavigation();
+
     const handleToForms2 = () => {
         navigation.navigate('FormsChild2');
     };
+
+    const handleToForms = async () => {
+        const page3Data = { selectedGender };
+        const finalFormData = { ...formData, ...page3Data };
+
+        try {
+            createBaby(finalFormData)
+            navigation.navigate('ChildAdded');
+                
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+
     const [fontsLoaded] = useFonts({
         MontserratBold: Montserrat_700Bold,
     });
@@ -68,11 +86,11 @@ function FormsChild3() {
                 </View>
             </View>
             <View style={styles.toachable}>
-                <TouchableOpacity style={styles.submitButton} onPress={handleToForms2}>
+                {/* <TouchableOpacity style={styles.submitButton} onPress={handleToForms2}>
                     <Ionicons name="arrow-back" style={styles.submitIcon} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 {selectedGender === 'male' || selectedGender === 'female' ? (
-                    <TouchableOpacity style={styles.submitButtonCheck} onPress={handleToForms2}>
+                    <TouchableOpacity style={styles.submitButtonCheck} onPress={handleToForms}>
                         <Feather name="check" style={styles.submitIcon} />
                     </TouchableOpacity>
                 ) : null}
@@ -150,12 +168,12 @@ const styles = StyleSheet.create({
     selectedMale: {
         backgroundColor: '#8AB6F7',
         borderWidth: 2,
-        borderColor: 'black', 
+        borderColor: 'black',
     },
     selectedFemale: {
         backgroundColor: '#FFD9E5',
-        borderWidth: 2, 
-        borderColor: 'black', 
+        borderWidth: 2,
+        borderColor: 'black',
     },
     text: {
         fontFamily: 'MontserratBold',

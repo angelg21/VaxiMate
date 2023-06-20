@@ -4,13 +4,18 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-
+import { useState } from 'react';
 
 const FormsChild1 = () => {
     const navigation = useNavigation();
+    const [name, setName] = useState('');
+    const [country, setCountry] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     
     const handleToForms2 = () => {
-        navigation.navigate('FormsChild2'); 
+        const page1Data = { name, country, email, phone } 
+        navigation.navigate('FormsChild2', { page1Data }); 
     };
     return (
         <View style={styles.container}>
@@ -41,6 +46,8 @@ const FormsChild1 = () => {
                     <TextInput
                         style={styles.input}
                         placeholder="Nombre"
+                        value={name}
+                        onChangeText={setName}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -50,8 +57,11 @@ const FormsChild1 = () => {
                     <TextInput
                         style={styles.input}
                         placeholder="País"
+                        value={country}
+                        onChangeText={setCountry}
                     />
                 </View>
+                <Text style={styles.text}>Datos del representante</Text>
                 <View style={styles.inputContainer}>
                     <View style={styles.square}>
                         <FontAwesome name="envelope" style={styles.inputsIcon} />
@@ -59,6 +69,8 @@ const FormsChild1 = () => {
                     <TextInput
                         style={styles.input}
                         placeholder="Correo"
+                        value={email}
+                        onChangeText={setEmail}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -72,6 +84,8 @@ const FormsChild1 = () => {
                     <TextInput
                         style={[styles.halfInput]}
                         placeholder="Número de Teléfono"
+                        value={phone}
+                        onChangeText={setPhone}
                     />
                 </View>
                 <TouchableOpacity style={styles.submitButton} onPress={handleToForms2}>
@@ -209,6 +223,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5F5F5',
         borderRadius: 5,
         paddingLeft: 10,
+    },
+    text: {
+        fontFamily: 'MontserratBold',
+        color: '#3c47a6',
+        fontSize: 18,
+        marginTop: 5,
+        marginBottom:18,
+        textAlign: 'center',
     },
 });
 

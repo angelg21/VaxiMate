@@ -3,28 +3,36 @@ import { View, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import ChildCard from '../../../components/ChildCard';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { getBabyData } from '../../../components/auth/Auth';
+import { useEffect, useState } from 'react';
 
 const ChildAdded = () => {
-    // Datos de ejemplo de varios niños
-    const childrenData = [
-        { id: 1, name: 'George Zarohur', gender: 'male', age: 6, weight: '7 lbs', height: '20 inches', given: 5, due: 1, upcoming: 2 },
-        { id: 2, name: 'Paula Castro', gender: 'female', age: 8, weight: '8 lbs', height: '22 inches', given: 2, due: 0, upcoming: 1 },
-        { id: 3, name: 'Cheaker Mouchatiny', gender: 'male', age: 4, weight: '6 lbs', height: '18 inches', given: 1, due: 2, upcoming: 1 },
-        { id: 4, name: 'Ruben Lorenzo', gender: 'male', age: 8, weight: '4 lbs', height: '16 inches', given: 3, due: 3, upcoming: 0 },
-        // Agrega más datos de niños aquí
-    ];
 
+    const [childList, setChildList] = useState([]);
     const navigation = useNavigation();
+
+
+    async function obtenerChildData() {
+        try {
+            const childData = await getBabyData();
+            setChildList(childData.childsData)
+        } catch (error) {
+            console.error(error);
+            // Manejo de errores, si es necesario
+            return [];
+        }
+    }
+    obtenerChildData()
+
     const handleAddChild = () => {
         navigation.navigate('FormsChild1');
     };
 
+
     return (
         <View style={styles.container}>
             <ScrollView style={styles.childrenContainer}>
-                {childrenData.map((baby) => (
-                    baby && <ChildCard key={baby.id} baby={baby} />
-                ))}
+                {childList.map((baby) => baby && <ChildCard key={baby.id} baby={baby} />)}
             </ScrollView>
             <TouchableOpacity style={styles.addButton} onPress={handleAddChild}>
                 <FontAwesome name="plus" style={styles.addIcon} />

@@ -3,7 +3,7 @@ import { View, ImageBackground, Text, StyleSheet, TouchableOpacity } from 'react
 import { useFonts, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 import { useNavigation } from '@react-navigation/native';
-
+import notificationsSchedule from '../components/notificationSchedule';
 
 function Intro() {
     const navigation = useNavigation();
@@ -13,12 +13,13 @@ function Intro() {
         Roboto_2: Roboto_700Bold,
     });
 
+
     if (!fontsLoaded) {
-        return null; 
+        return null;
     }
 
     const handleGetStarted = () => {
-        navigation.navigate('Login'); 
+        navigation.navigate('Login');
     };
 
     return (
@@ -28,7 +29,7 @@ function Intro() {
                     <Text style={styles.appName}>VaxiMate</Text>
                     <Text style={styles.subtitle}>Confianza en cada dosis</Text>
                     <TouchableOpacity style={styles.buttonContainer} onPress={handleGetStarted}>
-                        <Text style={styles.buttonText}>Get Started</Text>
+                        <Text style={styles.buttonText}>Empezar</Text>
                     </TouchableOpacity>
                 </View>
             </ImageBackground>

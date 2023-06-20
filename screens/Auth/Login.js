@@ -3,9 +3,15 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-nativ
 import { useFonts, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+import { loginUser } from '../../components/auth/Auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Login() {
     const navigation = useNavigation();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const handlePressRegister = () => {
         navigation.navigate('Register');
@@ -20,29 +26,69 @@ function Login() {
         return null;
     }
 
+    
+    const loginValidation = (email, password) => {
+        if (email === '') {
+            setError('El campo email no puede estar vacío');
+            return 1;
+        }
+        if (password === '') {
+            setError('El campo password no puede estar vacío');
+            return 1;
+        }
+        if (!email.includes('@')) {
+            setError('Formato de Correo Electronico incorrecto');
+            return 1;
+        }
+    };
+
+    const handleLogin = async (email, password) => {
+        const cod = loginValidation(email, password)
+        if(cod === 1)
+            return
+        try {
+            const token = await loginUser(email, password, setError);
+            if (token) {
+                setError('')
+                AsyncStorage.setItem('token', token);
+                navigation.navigate('NavHome');
+                
+            } else {
+            }
+        } catch (error) {
+            setError('Usuario o contraseña invalido')
+        }
+    };
+
     return (
         <View style={styles.container}>
             <Text style={styles.tittle}>VaxiMate</Text>
             <View style={styles.textContainer}>
-                <Text style={styles.subTittle}>Login to your Account</Text>
+                <Text style={styles.subTittle}>Ingresa a tu cuenta</Text>
             </View>
             <TextInput
                 style={styles.input}
                 placeholder='Email'
+                value={email}
+                onChangeText={setEmail}
             />
             <TextInput
                 style={styles.input}
                 placeholder='Password'
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
             />
             <View style={styles.textContainer}>
-                <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
+                <Text style={styles.forgotPasswordText}>Olvidaste tu constraseña?</Text>
             </View>
-                <TouchableOpacity style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>Sign In</Text>
-                </TouchableOpacity>
-            <Text style={styles.accountText}>Don't have an account?
+            {error !== '' && <Text style={styles.errorText}>{error}</Text>}
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => handleLogin(email, password)}>
+                <Text style={styles.buttonText}>Ingresar</Text>
+            </TouchableOpacity>
+            <Text style={styles.accountText}>No tienes una cuenta?
                 <TouchableOpacity onPress={handlePressRegister}>
-                    <Text style={styles.singUpText}> Sign Up</Text>
+                    <Text style={styles.singUpText}> Registrate</Text>
                 </TouchableOpacity>
             </Text>
         </View>
@@ -88,7 +134,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginTop: 40,
         borderRadius: 30,
-        backgroundColor:'#202c94'
+        backgroundColor: '#202c94'
     },
     buttonText: {
         fontFamily: 'MontserratBold',
@@ -113,6 +159,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#202c94',
     },
+    errorText: {
+        color: 'red',
+        alignSelf: 'flex-start',
+        marginLeft: 55,
+        marginTop: 15,
+    }
 });
 
 export default Login;

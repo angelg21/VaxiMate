@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Animated, Image} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const ChildCard = ({ baby }) => {
     const [isOpen, setIsOpen] = useState(false);
     const animatedHeight = useState(new Animated.Value(0))[0];
+
+    const navigation = useNavigation();
+    const handleSchedule = () => {
+        navigation.navigate('BabySchedule');
+    };
 
     const toggleCard = () => {
         Animated.timing(animatedHeight, {
@@ -16,7 +22,7 @@ const ChildCard = ({ baby }) => {
     };
 
     const getImageSource = () => {
-        if (baby.gender === 'male') {
+        if (baby.genre === 'male') {
             return require('../assets/gatearNiño.png');
         } else {
             return require('../assets/gatearNiña.png');
@@ -24,7 +30,7 @@ const ChildCard = ({ baby }) => {
     };
 
     const getBorderColor = () => {
-        if (baby.gender === 'male') {
+        if (baby.genre === 'male') {
             return '#6287B3';
         } else {
             return '#FFB6CC';
@@ -37,40 +43,40 @@ const ChildCard = ({ baby }) => {
                 <Image source={getImageSource()} style={styles.image} />
             </View>
             <View style={styles.rightSection}>
-                <Text style={styles.name}>{baby.name}</Text>
-                <Text style={styles.age}>{baby.age} meses</Text>
+                <Text style={styles.name}>{baby.fullname}</Text>
+                <Text style={styles.age}>{baby.age}</Text>
                 {!isOpen && (
                     <View style={styles.infoContainer}>
                         <View style={styles.infoColumn}>
                             <Text style={styles.infoTitle}>Dadas</Text>
-                            <Text style={styles.infoValue}>{baby.given}</Text>
+                            <Text style={styles.infoValue}>{baby.givenVaccines}</Text>
                         </View>
                         <View style={styles.infoColumn}>
                             <Text style={styles.infoTitle}>Pendientes</Text>
-                            <Text style={styles.infoValue}>{baby.due}</Text>
+                            <Text style={styles.infoValue}>{baby.pendingVaccines}</Text>
                         </View>
                         <View style={styles.infoColumn}>
                             <Text style={styles.infoTitle}>Proximas</Text>
-                            <Text style={styles.infoValue}>{baby.upcoming}</Text>
+                            <Text style={styles.infoValue}>{baby.nextVaccines}</Text>
                         </View>
                     </View>
                 )}
                 {isOpen && (
                     <Animated.View style={[styles.additionalInfo, { height: animatedHeight }]}>
-                        <Text style={styles.info}>Weight: {baby.weight}</Text>
-                        <Text style={styles.info}>Height: {baby.height}</Text>
+                        <Text style={styles.info}>Correo: {baby.emailN}</Text>
+                        <Text style={styles.info}>Telefono: {baby.phoneN}</Text>
                         <View style={styles.infoContainerOpen}>
                             <View style={styles.givenOpen}>
                                 <Text style={styles.infoTitle}>Dosis dadas/Total pendientes</Text>
-                                <Text style={styles.infoValue}>{baby.given}/8</Text>
-                                <Text style={styles.infoValue}>{8-baby.given} Dosis Pendientes</Text>
+                                <Text style={styles.infoValue}>{baby.givenVaccines}/{baby.pendingVaccines}</Text>
+                                <Text style={styles.infoValue}>{baby.pendingVaccines-baby.givenVaccines} Dosis Pendientes</Text>
                             </View>
                             <View style={styles.upcommingOpen}>
                                 <Text style={styles.infoTitle}>Proximas</Text>
-                                <Text style={styles.infoValue}>{baby.upcoming} Vacunas</Text>
+                                <Text style={styles.infoValue}>{baby.nextVaccines} Vacunas</Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={handleSchedule}>
                             <Text style={styles.buttonText}>Visualizar Esquema</Text>
                         </TouchableOpacity>
                     </Animated.View>

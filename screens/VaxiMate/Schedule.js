@@ -1,11 +1,13 @@
-import { Text, View, Button } from 'react-native'
+import React from 'react';
+import { View, Text, Image, FlatList } from 'react-native';
 
-function Schedule() {
+const Schedule = () => {
+
     return (
-        <View>
-            <Text> Esta es la Pagina Schedule </Text>
+        <View >
+            <Text>Pagina schedule</Text>
         </View>
     );
-}
+};
 
-export default Schedule
+export default Schedule;
