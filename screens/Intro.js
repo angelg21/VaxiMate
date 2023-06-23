@@ -12,11 +12,9 @@ function Intro() {
         Roboto_1: Roboto_400Regular,
         Roboto_2: Roboto_700Bold,
     });
-
-
     if (!fontsLoaded) {
-        return null;
-    }
+        return null; 
+    } 
 
     const handleGetStarted = () => {
         navigation.navigate('Login');

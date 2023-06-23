@@ -61,12 +61,13 @@ const FormsChild1 = () => {
                         onChangeText={setCountry}
                     />
                 </View>
-                <Text style={styles.text}>Datos del representante</Text>
+                <Text style={styles.text}>Datos del representante para recodatorios
+                </Text>
                 <View style={styles.inputContainer}>
                     <View style={styles.square}>
                         <FontAwesome name="envelope" style={styles.inputsIcon} />
                     </View>
-                    <TextInput
+                    <TextInput  
                         style={styles.input}
                         placeholder="Correo"
                         value={email}

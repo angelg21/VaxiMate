@@ -4,6 +4,7 @@ import FormsChild1 from '../screens/VaxiMate/childList/FormsChild1';
 import FormsChild2 from '../screens/VaxiMate/childList/FormsChild2';
 import FormsChild3 from '../screens/VaxiMate/childList/FormsChild3';
 import BabySchedule from '../screens/VaxiMate/childList/BabySchedule';
+import PruebaBaby from '../screens/VaxiMate/childList/PruebaBaby';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,13 @@ function NavChild() {
             <Stack.Screen
                 name='BabySchedule'
                 component={BabySchedule}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen
+                name='PruebaBaby'
+                component={PruebaBaby}
                 options={{
                     headerShown: false
                 }}

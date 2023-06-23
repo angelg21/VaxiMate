@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, ScrollView, StyleSheet, Text } from 'react-native';
 import ChildCard from '../../../components/ChildCard';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -8,21 +8,34 @@ import { useEffect, useState } from 'react';
 
 const ChildAdded = () => {
 
-    const [childList, setChildList] = useState([]);
+    const [childList, setChildList] = useState([]); 
     const navigation = useNavigation();
+    const [mensaje, setMensaje] = useState('');  
 
+    useEffect(() => {
+        obtenerChildData();
+    }, []);                                                         
+
+    useEffect(() => {
+        obtenerChildData();
+    }, [childList]); 
 
     async function obtenerChildData() {
         try {
             const childData = await getBabyData();
-            setChildList(childData.childsData)
-        } catch (error) {
+            if (childData) {
+                setChildList(childData.childsData)
+                setMensaje('')
+            }
+            else {
+                setMensaje('Empieza presionando el boton de abajo para agregar un bebe a tu lista de seguimiento')
+            }
+        } catch (error) { 
             console.error(error);
             // Manejo de errores, si es necesario
             return [];
         }
     }
-    obtenerChildData()
 
     const handleAddChild = () => {
         navigation.navigate('FormsChild1');
@@ -30,10 +43,17 @@ const ChildAdded = () => {
 
 
     return (
-        <View style={styles.container}>
-            <ScrollView style={styles.childrenContainer}>
-                {childList.map((baby) => baby && <ChildCard key={baby.id} baby={baby} />)}
-            </ScrollView>
+        <View style={styles.container}> 
+            {childList.length === 0 ? (
+                <View style={styles.containerM}>
+                    <Text style={styles.mensaje}>{mensaje}</Text>
+                </View>
+            ) : (
+                <ScrollView style={styles.childrenContainer}>
+                    {childList.map((baby) => baby && <ChildCard key={baby.id} baby={baby} />)} 
+                </ScrollView>
+            )
+            } 
             <TouchableOpacity style={styles.addButton} onPress={handleAddChild}>
                 <FontAwesome name="plus" style={styles.addIcon} />
             </TouchableOpacity>
@@ -52,8 +72,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 50,
         right: 20,
-        width: 75,
-        height: 75,
+        width: 70,
+        height: 70,
         borderRadius: 37,
         backgroundColor: '#3c47a6',
         justifyContent: 'center',
@@ -63,4 +83,13 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color: 'white',
     },
+    mensaje: {
+        fontSize: 20,
+        textAlign: 'center',
+    },
+    containerM: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 });

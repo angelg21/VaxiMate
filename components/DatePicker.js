@@ -9,7 +9,7 @@ const DatePicker = (props) => {
     const [show, setShow] = useState(false)
 
     const onChange = (evt, selectedDate) => {
-        setDate(new Date(selectedDate))
+        setDate(new Date(selectedDate)) 
     }
 
     const onAndroidChange = (evt, selectedDate) => {
@@ -49,7 +49,7 @@ const DatePicker = (props) => {
         >
             <View>
                 <Text style={styles.text}>{`${date.getFullYear()} - ${date.getMonth()+1} - ${date.getDate(
-                )}`}</Text>
+                )+1}`}</Text>
                 {Platform.OS !== 'ios' && show && renderDatePicker()}
 
                 {Platform.OS === 'ios' && (

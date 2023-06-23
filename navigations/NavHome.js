@@ -2,7 +2,7 @@ import { Text, View, Button } from 'react-native'
 import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, } from '@react-navigation/drawer'
 import VaccinationCalendar from '../screens/VaxiMate/VaccinationCalendar';
 import HomePage from '../screens/VaxiMate/HomePage';
-import Immunization from '../screens/VaxiMate/Immunization';
+import NavImmunization from './NavImmunization';
 import Schedule from '../screens/VaxiMate/Schedule';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -58,7 +58,7 @@ function NavHome() {
         };
 
         return (
-            <Drawer.Navigator initialRouteName='HomePage'
+            <Drawer.Navigator initialRouteName='ChildAdded'
                 screenOptions={{
                     headerStyle: { backgroundColor: '#202c94' },
                     headerTintColor: 'white',
@@ -67,7 +67,7 @@ function NavHome() {
                 }}
                 drawerContent={(props) => <CustomDrawerContent {...props} />}
             >
-                <Drawer.Screen
+                {/* <Drawer.Screen
                     name='HomePage'
                     component={HomePage}
                     options={{
@@ -79,14 +79,14 @@ function NavHome() {
                             <Ionicons name='home' color={'#202c94'} size={size * iconSizeMultiplier} />
                         ),
                     }}
-                />
+                /> */}
                 <Drawer.Screen
                     name='NavChild'
                     component={NavChild}
                     options={{
-                        title: 'Child Added',
+                        title: 'Bebes Agregados',
                         drawerLabel: ({ focused, color }) => (
-                            <Text style={{ fontSize: focused ? 19 : 17, fontFamily: 'Roboto_Regular', color }}>Child List</Text>
+                            <Text style={{ fontSize: focused ? 19 : 17, fontFamily: 'Roboto_Regular', color }}>Bebes Agregados</Text>
                         ),
                         drawerIcon: ({ size }) => (
                             <MaterialCommunityIcons name='baby-face' color={'#202c94'} size={size * iconSizeMultiplier} />
@@ -94,12 +94,12 @@ function NavHome() {
                     }}
                 />
                 <Drawer.Screen
-                    name='VaccinationCalendar'
+                    name='Calendario de Vacunacion'
                     component={VaccinationCalendar}
                     options={{
                         title: 'Calendar',
                         drawerLabel: ({ focused, color }) => (
-                            <Text style={{ fontSize: focused ? 19 : 17, fontFamily: 'Roboto_Regular', color }}>Calendar View</Text>
+                            <Text style={{ fontSize: focused ? 19 : 17, fontFamily: 'Roboto_Regular', color }}>Calendario</Text>
                         ),
                         drawerIcon: ({ size }) => (
                             <Ionicons name='calendar' color={'#202c94'} size={size * iconSizeMultiplier} />
@@ -107,12 +107,12 @@ function NavHome() {
                     }}
                 />
                 <Drawer.Screen
-                    name='Immunization'
-                    component={Immunization}
+                    name='NavImmunization'
+                    component={NavImmunization}
                     options={{
-                        title: 'Immunization Article',
+                        title: 'Articulos de Inmunizacion',
                         drawerLabel: ({ focused, color }) => (
-                            <Text style={{ fontSize: focused ? 19 : 17, fontFamily: 'Roboto_Regular', color }}>Immunization Article</Text>
+                            <Text style={{ fontSize: focused ? 19 : 17, fontFamily: 'Roboto_Regular', color }}>Articulos de Inmunizacion</Text>
                         ),
                         drawerIcon: ({ size }) => (
                             <Ionicons name='newspaper' color={'#202c94'} size={size * iconSizeMultiplier} />
@@ -123,7 +123,7 @@ function NavHome() {
                     name='Schedule'
                     component={Schedule}
                     options={{
-                        title: 'Country Schedule',
+                        title: 'Esquema de Vacunacion',
                         drawerLabel: ({ focused, color }) => (
                             <Text style={{ fontSize: focused ? 19 : 17, fontFamily: 'Roboto_Regular', color }}>Country Schedule</Text>
                         ),

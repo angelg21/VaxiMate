@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, Image, FlatList, Button, Dimensions, TouchableOpacity } from 'react-native';
-import { RadioButton } from 'react-native-paper';
 import { CheckBox } from 'react-native-elements';
+import { getBabyVaccinationSchedule } from '../../../components/auth/Auth';
 import { useRoute } from '@react-navigation/native';
+import { useEffect } from 'react';
+import { updateSchedule } from '../../../components/auth/Auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const BabySchedule = () => {
-    
+
+const PruebaBaby = () => {
     const data = [
         {
             id: 1,
@@ -33,9 +36,29 @@ const BabySchedule = () => {
         // Agrega más datos de bebés aquí
     ];
 
-    // const route = useRoute();
-    // const {babyId} = route.params;
-    // console.log(babyId)
+
+    const [data3, setData3] = useState([])
+    const route = useRoute();
+    const { babyId } = route.params;
+    const [selectedVaccines, setSelectedVaccines] = useState([]);
+
+    async function obtenerChildSchedule() {
+        try {
+            const childData = await getBabyVaccinationSchedule(babyId);
+            return childData
+        } catch (error) {
+            console.error(error);
+            // Manejo de errores, si es necesario
+            return [];
+        }
+    }
+
+    useEffect(() => {
+        setData3([])
+        obtenerChildSchedule().then((response) => {
+            setData3((previous) => [...previous, response])
+        })
+    }, [])
 
     const getImageSource = (gender) => {
         if (gender === 'male') {
@@ -45,7 +68,6 @@ const BabySchedule = () => {
         }
     };
 
-    const [selectedVaccines, setSelectedVaccines] = useState([]);
 
     const handleCheckBoxChange = (vaccineId) => {
         setSelectedVaccines((prevSelectedVaccines) => {
@@ -66,14 +88,21 @@ const BabySchedule = () => {
         });
     };
 
+console.log(typeof selectedVaccines)
 
-    console.log(selectedVaccines)
     const handleSaveChanges = () => {
-        console.log(selectedVaccines);
+        updateSchedule(selectedVaccines)
+            .then(response => {
+                console.log(selectedVaccines);
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     };
 
     const renderCard = ({ item }) => {
-        console.log(item)
+        // console.log(item)
         return (
             <View style={styles.card}>
                 <View style={styles.infoSection}>
@@ -104,27 +133,31 @@ const BabySchedule = () => {
                         </View>
                     )}
                     keyExtractor={(scheduleItem) => scheduleItem.date}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
+                    horizontal 
+                    showsHorizontalScrollIndicator={false} 
                 />
             </View>
         );
     };
 
     return (
+
         <View style={styles.container}>
-            <FlatList
-                data={data}
-                renderItem={renderCard}
-                keyExtractor={(item) => item.id.toString()}
-                showsVerticalScrollIndicator={false}
-            />
+            {data3.length != 0 &&
+                <FlatList
+                    data={data3}
+                    renderItem={renderCard}
+                    keyExtractor={(item) => item.id.toString()}
+                    showsVerticalScrollIndicator={false}
+                />
+            }
         </View>
+
     );
 };
 
 const windowWidth = Dimensions.get('window').width;
-const cardWidth = windowWidth - 45;
+const cardWidth = windowWidth - 25;
 const cardMarginRight = 15;
 
 const styles = {
@@ -165,8 +198,9 @@ const styles = {
         marginBottom: 10,
         width: cardWidth,
         marginLeft: cardMarginRight,
-        height: 300,
+        height: 400,
         borderWidth: 0.8,
+        marginRight: 12,
     },
     date: {
         fontSize: 20,
@@ -208,5 +242,4 @@ const styles = {
     }
 };
 
-export default BabySchedule;
-
+export default PruebaBaby;

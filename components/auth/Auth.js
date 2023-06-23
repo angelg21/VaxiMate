@@ -69,9 +69,43 @@ export async function getBabyData() {
         const childrenData = response.data;
         return childrenData;
     } catch (error) {
-        console.error(error);
+        //console.error(error);
     }
 };
+
+export async function getBabyVaccinationSchedule(babyId) {
+    try {
+        const token = await AsyncStorage.getItem('token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+
+        const response = await axios.get(`schedules/${babyId}`, { headers });
+        const vaccinationSchedule = response.data;
+        return vaccinationSchedule;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+export async function updateSchedule(selectedVaccines) {
+    try {
+        const token = await AsyncStorage.getItem('token')
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        const response = await axios.post('/schedules',{
+            selectedVaccines: selectedVaccines,
+        },{
+            headers
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error al enviar los datos');
+    }
+}
 
 export async function isAuthenticated() {
     try {

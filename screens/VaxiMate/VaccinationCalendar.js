@@ -18,7 +18,7 @@ const VaccinationCalendar = () => {
         { id: 1, babyName: 'George Zarohur', gender: 'male', date: '2023-06-10', doses: [{ type: 'BCC: Tuberculosis', dose: '1 Dosis' }] },
         { id: 2, babyName: 'Paula Castro', gender: 'female', date: '2023-06-15', doses: [{ type: 'HEPB: Hepatitis B', dose: '2 Dosis' }, { type: 'BCC: Tuberculosis', dose: '3 Dosis' }] },
         { id: 3, babyName: 'Cheaker Mouchatiny', gender: 'male', date: '2023-06-20', doses: [{ type: 'Pentavalente Rotavirus Neumococo', dose: '4 Dosis' }] },
-        { id: 3, babyName: 'Ruben Lorenzo', gender: 'male', date: '2023-06-15', doses: [{ type: 'Varicela', dose: '2 Dosis' }] },
+        { id: 4, babyName: 'Ruben Lorenzo', gender: 'male', date: '2023-06-15', doses: [{ type: 'Varicela', dose: '2 Dosis' }] },
         // Agrega más datos de vacunas pendientes aquí
     ];
 

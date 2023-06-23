@@ -8,8 +8,10 @@ const ChildCard = ({ baby }) => {
     const animatedHeight = useState(new Animated.Value(0))[0];
 
     const navigation = useNavigation();
+
     const handleSchedule = () => {
-        navigation.navigate('BabySchedule');
+        const babyId = baby.id;
+        navigation.navigate('PruebaBaby', {babyId});
     };
 
     const toggleCard = () => {
@@ -35,7 +37,7 @@ const ChildCard = ({ baby }) => {
         } else {
             return '#FFB6CC';
         }
-    };
+    }; 
 
     return (
         <TouchableOpacity onPress={toggleCard} style={[styles.container, { borderColor: getBorderColor() }]}>
