@@ -12,7 +12,7 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-
+ 
     const handlePressRegister = () => {
         navigation.navigate('Register');
     };
@@ -62,7 +62,7 @@ function Login() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.tittle}>VaxiMate</Text>
+            <Text style={styles.tittle}>Inmunizate 593</Text>
             <View style={styles.textContainer}>
                 <Text style={styles.subTittle}>Ingresa a tu cuenta</Text>
             </View>
@@ -108,10 +108,11 @@ const styles = StyleSheet.create({
     },
     tittle: {
         fontFamily: 'MontserratBold',
-        fontSize: 60,
+        fontSize: 58,
         color: '#202c94',
         fontWeight: 'bold',
         marginBottom: 40,
+        textAlign: 'center',
     },
     subTittle: {
         fontFamily: 'Roboto_Regular',

@@ -5,55 +5,74 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { getBabyData } from '../../../components/auth/Auth';
 import { useEffect, useState } from 'react';
+import { deleteBaby } from '../../../components/auth/Auth';
+import { useFocusEffect } from '@react-navigation/native'
 
 const ChildAdded = () => {
 
-    const [childList, setChildList] = useState([]); 
+    const [childList, setChildList] = useState([]);
     const navigation = useNavigation();
-    const [mensaje, setMensaje] = useState('');  
+    const [mensaje, setMensaje] = useState('');
+
+    // useEffect(() => {
+    //     obtenerChildData();
+    //     console.log('Primera vez')
+    // }, []);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            obtenerChildData();
+        }, [])
+    );
 
     useEffect(() => {
-        obtenerChildData();
-    }, []);                                                         
-
-    useEffect(() => {
-        obtenerChildData();
-    }, [childList]); 
+    }, [childList]);
 
     async function obtenerChildData() {
         try {
             const childData = await getBabyData();
             if (childData) {
                 setChildList(childData.childsData)
-                setMensaje('')
             }
-            else {
-                setMensaje('Empieza presionando el boton de abajo para agregar un bebe a tu lista de seguimiento')
-            }
-        } catch (error) { 
-            console.error(error);
+        } catch (error) {
             // Manejo de errores, si es necesario
             return [];
         }
     }
 
+    const handleDelete = (childId) => {
+        try {
+            // Lógica para eliminar el niño de la base de datos
+            deleteBaby(childId)
+            // Actualizar la lista de niños después de la eliminación  
+            if (childList.length === 1) {
+                setChildList([])
+            }
+            else {
+                obtenerChildData();
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const handleAddChild = () => {
         navigation.navigate('FormsChild1');
     };
 
-
     return (
-        <View style={styles.container}> 
+        <View style={styles.container}>
+
             {childList.length === 0 ? (
                 <View style={styles.containerM}>
-                    <Text style={styles.mensaje}>{mensaje}</Text>
+                    <Text style={styles.mensaje}>Empieza presionando el boton de abajo para agregar un bebe a tu lista de seguimiento</Text>
                 </View>
             ) : (
                 <ScrollView style={styles.childrenContainer}>
-                    {childList.map((baby) => baby && <ChildCard key={baby.id} baby={baby} />)} 
+                    {childList.map((baby) => baby && <ChildCard key={baby.id} baby={baby} onDelete={handleDelete} />)}
                 </ScrollView>
             )
-            } 
+            }
             <TouchableOpacity style={styles.addButton} onPress={handleAddChild}>
                 <FontAwesome name="plus" style={styles.addIcon} />
             </TouchableOpacity>

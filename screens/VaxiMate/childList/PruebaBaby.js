@@ -5,7 +5,8 @@ import { getBabyVaccinationSchedule } from '../../../components/auth/Auth';
 import { useRoute } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { updateSchedule } from '../../../components/auth/Auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFonts, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
+import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
 
 const PruebaBaby = () => {
@@ -35,6 +36,10 @@ const PruebaBaby = () => {
         },
         // Agrega más datos de bebés aquí
     ];
+
+    const handlePressRegister = () => {
+        navigation.navigate('Register');
+    };
 
 
     const [data3, setData3] = useState([])
@@ -113,6 +118,9 @@ console.log(typeof selectedVaccines)
                         <Text style={styles.babyName}>{item.babyName}</Text>
                     </View>
                 </View>
+                <View style={styles.contenedortext}>
+                        <Text style={styles.text}>Marque las vacunas que ya han sido aplicadas y presione la jeringa para actualizar su estatus</Text>
+                    </View>
                 <FlatList
                     data={item.schedule}
                     renderItem={({ item: scheduleItem }) => (
@@ -178,8 +186,17 @@ const styles = {
     leftSection: {
         marginRight: 15,
     },
-    rightSection: {
-
+    contenedortext:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 15,
+        marginRight: 15,
+    },
+    text: {
+        marginBottom: 20,
+        fontSize: 16,
+        fontFamily: 'Arial',
+        fontWeight: 'normal',
     },
     image: {
         width: 50,

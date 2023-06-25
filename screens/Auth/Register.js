@@ -85,7 +85,7 @@ function Register() {
     return (
         <ScrollView>
             <View style={styles.container}>
-                <Text style={styles.tittle}>VaxiMate</Text>
+                <Text style={styles.tittle}>Inmunizate 593</Text>
                 <View style={styles.textContainer}>
                     <Text style={styles.subTittle}>Create your Account</Text>
                 </View>
@@ -178,10 +178,11 @@ const styles = StyleSheet.create({
     },
     tittle: {
         fontFamily: 'MontserratBold',
-        fontSize: 60,
+        fontSize: 57,
         color: '#202c94',
         fontWeight: 'bold',
         marginBottom: 35,
+        textAlign: 'center',
     },
     subTittle: {
         fontFamily: 'Roboto_Regular',

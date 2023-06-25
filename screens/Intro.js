@@ -24,7 +24,7 @@ function Intro() {
         <View style={styles.container}>
             <ImageBackground source={require('../assets/imagenIntro.jpg')} style={styles.backgroundImage}>
                 <View style={styles.contentContainer}>
-                    <Text style={styles.appName}>VaxiMate</Text>
+                    <Text style={styles.appName}>Inmunizate 593</Text>
                     <Text style={styles.subtitle}>Confianza en cada dosis</Text>
                     <TouchableOpacity style={styles.buttonContainer} onPress={handleGetStarted}>
                         <Text style={styles.buttonText}>Empezar</Text>
@@ -38,6 +38,7 @@ function Intro() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        
     },
     backgroundImage: {
         flex: 1,
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
+        alignItems: 'center',
     },
     appName: {
         fontFamily: 'MontserratBold',
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
         marginBottom: 10,
+        textAlign: 'center',
     },
     subtitle: {
         fontFamily: 'Roboto_1',

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Animated, Image} from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Animated, Image } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { deleteBaby } from './auth/Auth';
 
-const ChildCard = ({ baby }) => {
+const ChildCard = ({ baby, onDelete }) => {
     const [isOpen, setIsOpen] = useState(false);
     const animatedHeight = useState(new Animated.Value(0))[0];
 
@@ -11,7 +12,7 @@ const ChildCard = ({ baby }) => {
 
     const handleSchedule = () => {
         const babyId = baby.id;
-        navigation.navigate('PruebaBaby', {babyId});
+        navigation.navigate('PruebaBaby', { babyId });
     };
 
     const toggleCard = () => {
@@ -37,7 +38,11 @@ const ChildCard = ({ baby }) => {
         } else {
             return '#FFB6CC';
         }
-    }; 
+    };
+
+    const handleDelete = () => {
+        onDelete(baby.id)
+    }
 
     return (
         <TouchableOpacity onPress={toggleCard} style={[styles.container, { borderColor: getBorderColor() }]}>
@@ -45,7 +50,13 @@ const ChildCard = ({ baby }) => {
                 <Image source={getImageSource()} style={styles.image} />
             </View>
             <View style={styles.rightSection}>
-                <Text style={styles.name}>{baby.fullname}</Text>
+                <View style={styles.header}>
+                    <Text style={styles.name}>{baby.fullname}</Text>
+                    <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+                        {/* Aquí puedes colocar el icono de la papelera */}
+                        <Image source={require('../assets/papelera.png')} style={styles.deleteIcon} />
+                    </TouchableOpacity>
+                </View>
                 <Text style={styles.age}>{baby.age}</Text>
                 {!isOpen && (
                     <View style={styles.infoContainer}>
@@ -71,7 +82,7 @@ const ChildCard = ({ baby }) => {
                             <View style={styles.givenOpen}>
                                 <Text style={styles.infoTitle}>Dosis dadas/Total pendientes</Text>
                                 <Text style={styles.infoValue}>{baby.givenVaccines}/{baby.pendingVaccines}</Text>
-                                <Text style={styles.infoValue}>{baby.pendingVaccines-baby.givenVaccines} Dosis Pendientes</Text>
+                                <Text style={styles.infoValue}>{baby.pendingVaccines - baby.givenVaccines} Dosis Pendientes</Text>
                             </View>
                             <View style={styles.upcommingOpen}>
                                 <Text style={styles.infoTitle}>Proximas</Text>
@@ -117,6 +128,23 @@ const styles = StyleSheet.create({
         marginTop: 8,
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    deleteButton: {
+        width: 32,
+        height: 32,
+        borderRadius: 15,
+        backgroundColor: '#FF0000B3',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    deleteIcon: {
+        width: 20,
+        height: 20,
     },
     age: {
         fontSize: 14,
@@ -168,7 +196,7 @@ const styles = StyleSheet.create({
         height: 45,
         marginTop: 25,
         borderRadius: 30,
-        backgroundColor:'#202c94'
+        backgroundColor: '#202c94'
     },
     buttonText: {
         textAlign: 'center',

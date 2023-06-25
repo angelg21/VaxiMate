@@ -6,12 +6,13 @@ import { EvilIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 
-const FormsChild1 = () => {
+const FormsChild1 = ({route}) => {
     const navigation = useNavigation();
     const [name, setName] = useState('');
     const [country, setCountry] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+
     
     const handleToForms2 = () => {
         const page1Data = { name, country, email, phone } 
@@ -33,12 +34,6 @@ const FormsChild1 = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.formularioContainer}>
-                <View style={styles.circleContainer}>
-                    <View style={styles.circle}>
-                        <EvilIcons name="camera" style={styles.cameraIcon} />
-                        <Text style={styles.cameraText}>Your Foto</Text>
-                    </View>
-                </View>
                 <View style={styles.inputContainer}>
                     <View style={styles.square}>
                         <FontAwesome name="user" style={styles.inputsIcon} />
@@ -56,7 +51,7 @@ const FormsChild1 = () => {
                     </View>
                     <TextInput
                         style={styles.input}
-                        placeholder="País"
+                        placeholder="Provincia"
                         value={country}
                         onChangeText={setCountry}
                     />
@@ -81,6 +76,8 @@ const FormsChild1 = () => {
                     <TextInput
                         style={[styles.input]}
                         placeholder="Código"
+                        value='+593'
+                        editable={false}
                     />
                     <TextInput
                         style={[styles.halfInput]}
@@ -148,8 +145,9 @@ const styles = StyleSheet.create({
     formularioContainer: {
         flex: 1,
         marginHorizontal: 20,
-        marginTop: 60,
+        marginBottom: 40,
         alignItems: 'center',
+        justifyContent: 'center',
     },
     circleContainer: {
         alignItems: 'center',

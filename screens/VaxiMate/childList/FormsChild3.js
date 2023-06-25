@@ -25,12 +25,12 @@ function FormsChild3({ route }) {
         const page3Data = { selectedGender };
         const finalFormData = { ...formData, ...page3Data };
 
+        
         try {
-            createBaby(finalFormData)
+            await createBaby(finalFormData);
             navigation.navigate('ChildAdded');
-                
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
 

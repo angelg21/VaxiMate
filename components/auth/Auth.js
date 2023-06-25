@@ -49,10 +49,12 @@ export async function createBaby(finalFormData) {
             phoneN: phone,
             genre: selectedGender,
         }, {
-            headers: {
-                Authorization: `Bearer ${token}`
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
             }
-        });
+        );
+        return response.data;
     } catch (error) {
         console.log(error)
     }
@@ -69,7 +71,7 @@ export async function getBabyData() {
         const childrenData = response.data;
         return childrenData;
     } catch (error) {
-        //console.error(error);
+        
     }
 };
 
@@ -95,9 +97,9 @@ export async function updateSchedule(selectedVaccines) {
         const headers = {
             Authorization: `Bearer ${token}`,
         };
-        const response = await axios.post('/schedules',{
+        const response = await axios.post('/schedules', {
             selectedVaccines: selectedVaccines,
-        },{
+        }, {
             headers
         });
         return response.data;
@@ -106,6 +108,49 @@ export async function updateSchedule(selectedVaccines) {
         throw new Error('Error al enviar los datos');
     }
 }
+
+export async function deleteBaby(id) {
+    try {
+        const token = await AsyncStorage.getItem('token')
+        const response = await axios.delete(`/childs/${id}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export async function obtenerCredenciales() {
+    try {
+        const token = await AsyncStorage.getItem('token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+
+        const response = await axios.get('/user', { headers });
+        const user = response.data;
+        return user;
+    } catch (error) {
+        console.error('fallo get baby data');
+    }
+};
+
+export async function getSchedule() {
+    try {
+        const token = await AsyncStorage.getItem('token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+
+        const response = await axios.get('/childs', { headers });
+        const schedule = response.data;
+        return schedule;
+    } catch (error) {
+        
+    }
+};
 
 export async function isAuthenticated() {
     try {
